@@ -1,2 +1,15 @@
 cat /dev/null > allbooks.txt
-sed 's/<[^>]*>//g' <(curl -s http://www.textfiles.com/etext/FICTION) | cut -d ' ' -f1 | grep -E '*.txt' | head -2| while read line; do echo "Loading... $line"; curl -s http://www.textfiles.com/etext/FICTION/$line >> allbooks.txt; done; echo "All books was concatenated."
+
+URL="http://www.textfiles.com/etext/FICTION/"
+
+sed 's/<[^>]*>//g' <(curl -s $URL) |
+cut -d ' ' -f1 |
+grep -E '*.txt'|
+while read book
+do
+    echo "Loading... $book"
+    curl -s $URL$book >> allbooks.txt
+    echo "$book was downloaded"
+    echo
+done
+echo "All books was concatenated."
