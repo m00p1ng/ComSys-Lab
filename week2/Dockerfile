@@ -17,17 +17,18 @@ RUN pip3 install numpy
 RUN apt-get install -y python-pip
 RUN pip install --upgrade pip
 
-RUN cd ~/ &&\
-    git clone https://github.com/Itseez/opencv.git &&\
-    git clone https://github.com/Itseez/opencv_contrib.git &&\
-    cd opencv && mkdir build && cd build && cmake  -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON .. && \
-    make -j4 && make install && ldconfig && rm -rf ~/opencv*  # Remove the opencv folders to reduce image size
+#RUN cd ~/ &&\
+    #git clone https://github.com/Itseez/opencv.git &&\
+    #git clone https://github.com/Itseez/opencv_contrib.git &&\
+    #cd opencv && mkdir build && cd build && cmake  -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON .. && \
+    #make -j4 && make install && ldconfig && rm -rf ~/opencv*  # Remove the opencv folders to reduce image size
 
 # Set the appropriate link
-RUN ln /dev/null /dev/raw1394
+#RUN ln /dev/null /dev/raw1394
 
 
 # My command
 RUN pip install numpy opencv-python
-ADD ~/count_grey.py ~/count_grey.py
-CMD ["python" "~/count_grey"]
+ADD ./countgrey.py /code/app/countgrey.py
+ADD ./images /images
+CMD [ "python", "/code/app/countgrey.py" ]

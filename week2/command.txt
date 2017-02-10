@@ -1,0 +1,2 @@
+1) docker build -t "my_images:latest" .  # ใช้สำหรับ build images
+2) docker run -it my_images              # ใช้สำหรับ run โปรแกรม
